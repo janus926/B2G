@@ -29,6 +29,7 @@ import textwrap
 import argparse
 import json
 import urllib
+import urlparse
 import shutil
 import subprocess
 import tarfile
@@ -251,7 +252,8 @@ def get_and_show_info(args):
 
     if merged_reports_path:
         # Try to open the dump in Firefox.
-        about_memory_url = "about:memory?file=%s" % urllib.quote(merged_reports_path)
+        about_memory_url = "about:memory?uri=%s" % urlparse.urljoin('file:',
+            urllib.pathname2url(merged_reports_path));
 
         opened_in_firefox = False
         if args.open_in_firefox:
